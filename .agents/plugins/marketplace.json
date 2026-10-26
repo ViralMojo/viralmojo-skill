@@ -1,0 +1,20 @@
+{
+  "name": "viralmojo",
+  "interface": {
+    "displayName": "ViralMojo"
+  },
+  "plugins": [
+    {
+      "name": "viralmojo",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex/viralmojo"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

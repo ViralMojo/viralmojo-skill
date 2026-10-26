@@ -1,0 +1,42 @@
+{
+  "name": "viralmojo",
+  "version": "0.1.0",
+  "description": "Your ViralMojo brand brain in Codex: the web agent's tools over your workspace (research, customer evidence, competitor and organic reads, ad performance, creative writing, static ads) and its skills, routed through five skills.",
+  "author": {
+    "name": "ViralMojo",
+    "url": "https://viralmojo.ai"
+  },
+  "homepage": "https://viralmojo.ai",
+  "repository": "https://github.com/ViralMojo/viralmojo-skill",
+  "keywords": [
+    "marketing",
+    "ads",
+    "brand",
+    "research",
+    "creative",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "ViralMojo",
+    "shortDescription": "Your brand brain for ads",
+    "longDescription": "ViralMojo is an AI workspace for performance marketers. This plugin connects Codex to your existing ViralMojo account and brand brain: read and write the brand's docs and tables, mine customer and market evidence from public channels, read your competitors' live Meta ads and the organic videos you track, read your own Meta ad performance, write hooks, scripts and ad copy with a voice check, and make finished static ads. Reads are free; searches, digs and image generations use your ViralMojo credits at the web app's rates. Sign-up, plans and connecting your ad account happen in the ViralMojo web app.",
+    "developerName": "ViralMojo",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://viralmojo.ai",
+    "privacyPolicyURL": "https://viralmojo.ai/privacy",
+    "termsOfServiceURL": "https://viralmojo.ai/terms",
+    "defaultPrompt": [
+      "What does our brand brain say about our customers?",
+      "Dig into what people say about our category on Reddit.",
+      "Write five hooks for our best-selling product."
+    ],
+    "brandColor": "#1F2A44",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
+  }
+}

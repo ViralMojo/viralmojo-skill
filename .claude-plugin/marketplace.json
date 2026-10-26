@@ -1,0 +1,17 @@
+{
+  "name": "viralmojo",
+  "owner": {
+    "name": "ViralMojo",
+    "url": "https://viralmojo.ai"
+  },
+  "description": "ViralMojo for Claude Code: your brand brain, the web agent's tools and skills, and channel diggers that run on your plan.",
+  "plugins": [
+    {
+      "name": "viralmojo",
+      "source": "./plugins/claude/viralmojo",
+      "description": "Your ViralMojo brand brain inside Claude Code: the web agent's tools, its 13 skills, seven channel diggers and the start and status commands.",
+      "category": "marketing",
+      "tags": ["marketing", "ads", "brand", "research", "creative"]
+    }
+  ]
+}
