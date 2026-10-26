@@ -51,12 +51,18 @@ plugins/
 
 ### Claude Code (CLI, desktop Code tab, VS Code)
 
+Users install from the **public mirror** `ViralMojo/viralmojo-skill`, a generated copy of this directory (`dev/scripts/publish-skill-repo.sh`; re-run it after every change to `plugins/` lands on `main`). The mirror carries no `.mcp.json`: the server is registered first with the host's own commands, so `install.md` (served at `viralmojo.ai/install.md`) has the agent run, in this order:
+
 ```
-/plugin marketplace add ViralMojo/viralmojo-skill
-/plugin install viralmojo@viralmojo
+claude mcp add --transport http -s user viralmojo https://api.viralmojo.ai/mcp
+claude mcp login viralmojo
+claude plugin marketplace add ViralMojo/viralmojo-skill
+claude plugin install viralmojo@viralmojo
 ```
 
-or from a shell: `claude plugin marketplace add ViralMojo/viralmojo-skill && claude plugin install viralmojo@viralmojo`. Then run `/mcp`, pick `plugin:viralmojo:viralmojo` and sign in with the ViralMojo account (OAuth through Clerk). `/viralmojo:start` opens a session. The marketplace repo must be readable by the installing user.
+The plugin's tools are then the hand-added server's, `mcp__viralmojo__<tool>`; the dig agents and the two commands list that prefix. `/viralmojo:start` opens a session.
+
+From this (private) repo, for us: `claude plugin marketplace add ViralMojo/viralmojo-skill` + `claude plugin install viralmojo@viralmojo` installs the copy WITH `.mcp.json` (server `plugin:viralmojo:viralmojo`, signed in from `/mcp`); with a hand-added server beside it the agent sees every tool twice under two prefixes — remove one (`claude mcp remove viralmojo`, or disable the plugin's server in `/mcp`). Against the dev box the dig agents need a server named `viralmojo` (their tool lists carry that prefix, not `viralmojo-dev`): `claude mcp add --transport http -s user viralmojo https://dev.viralmojo.ai/mcp`, or `VIRALMOJO_MCP_URL=https://dev.viralmojo.ai/mcp` with this repo's plugin.
 
 Claude Code asks before every MCP tool call, and a plugin cannot ship `permissions`, so only `workspace_anchor` / `account_status` (pre-approved by the two commands) run without a prompt. To stop the prompts on the free reads, add them to `permissions.allow` in `~/.claude/settings.json` (or the project's `.claude/settings.json`):
 
@@ -93,10 +99,12 @@ Server only, no plugin: `claude mcp add --transport http viralmojo https://api.v
 ### Codex (CLI, IDE, Codex in the ChatGPT desktop app)
 
 ```
+codex mcp add viralmojo --url https://api.viralmojo.ai/mcp
+codex mcp login viralmojo
 codex plugin marketplace add ViralMojo/viralmojo-skill
 ```
 
-then restart the ChatGPT desktop app, open the Plugins Directory, choose the ViralMojo marketplace and install the plugin; it signs in on install (OAuth, CIMD with DCR fallback). Invoke it with `$viralmojo`.
+then restart the ChatGPT desktop app, open the Plugins Directory, choose the ViralMojo marketplace and install the plugin (the public mirror's copy carries no server, so the sign-in is the `codex mcp login` above; this repo's own copy, `codex plugin marketplace add ViralMojo/viralmojo-skill`, keeps `mcp.json` and signs in on install — OAuth, CIMD with DCR fallback). Invoke it with `$viralmojo`. Not validated end to end on a real Codex install.
 
 Optional dig agents that run on the user's plan: `cp plugins/codex/viralmojo/agents/*.toml ~/.codex/agents/`. Codex plugins do not carry custom agents (custom agents are standalone TOML files under `~/.codex/agents/` or `.codex/agents/`), so the plugin defaults to the server's `dig_channel`.
 
