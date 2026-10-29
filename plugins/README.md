@@ -1,6 +1,6 @@
 # ViralMojo plugins (host mode)
 
-Plugins that put ViralMojo inside the user's own AI host. The host's model is the agent; ViralMojo's MCP server (`backend/app/mcp/`, `https://api.viralmojo.ai/mcp`) provides the web agent's tools over the user's existing account and brand brain, with the web's billing. These plugins carry the rest: the web agent's skills, its standing behaviour, and the routines that replace what the web app does around its agent (the per-turn workspace anchor, the step trace, the result cards, background runs). The workspace itself is read in the web app on every host: there is no workspace pane or card inside a host.
+Plugins that put ViralMojo inside the user's own AI host. The host's model is the agent; ViralMojo's MCP server (`backend/app/mcp/`, `https://api.viralmojo.ai/mcp`) provides the web agent's tools over the user's existing account and brand brain, with the web's billing. These plugins carry the rest: an entry for each of the web agent's skills, its standing behaviour, and the routines that replace what the web app does around its agent (the per-turn workspace anchor, the step trace, the result cards, background runs). The workspace itself is read in the web app on every host: there is no workspace pane or card inside a host.
 
 A first sign-in from a host makes the account, and `start_onboarding_build` runs the one-time brand build from there (2026-10-25); plans and payment, and connecting the Meta ad account, stay in the web app.
 
@@ -15,18 +15,16 @@ plugins/
     .mcp.json                          the MCP server, ${VIRALMOJO_MCP_URL:-https://api.viralmojo.ai/mcp}
     hooks/hooks.json                   SessionStart: one line of context
     commands/{start,status}.md         /viralmojo:start, /viralmojo:status
-    agents/dig-<channel>.md            seven channel diggers            (generated)
+    agents/dig-<channel>.md            eight channel diggers            (generated)
     skills/viralmojo/SKILL.md          host-mode main skill             (authored)
-    skills/<13 bundles>/               the web agent's skills, verbatim (generated)
+    skills/<13 bundles>/SKILL.md       thin entries: frontmatter + load (generated)
   codex/viralmojo/                     OpenAI plugin (Codex, ChatGPT desktop)
     plugin.json                        Agent Plugins 1.0 manifest + extensions.com.openai
     .codex-plugin/plugin.json          legacy Codex manifest (same metadata)
     mcp.json / .mcp.json               the MCP server, OAuth (portable / legacy form)
     skills/viralmojo/SKILL.md          host-mode main skill, Codex variant (authored)
     skills/{research,creative,strategy,performance}/
-      SKILL.md                         router                           (authored)
-      references/<bundle>/<bundle>.md  the bundle's SKILL.md, verbatim  (generated)
-      references/<bundle>/references/  the bundle's references, verbatim (generated)
+      SKILL.md                         router: names its bundles, loads them (authored)
     agents/viralmojo-dig-<channel>.toml  Codex custom agents, copy-in   (generated)
   shared/dig-agent-core.md             the digger prompt both hosts' agents render from
   shared/dig-channels.json             one blurb per dig channel
@@ -37,15 +35,19 @@ plugins/
 | Web | Claude Code plugin | Codex plugin |
 |---|---|---|
 | Base prompt `backend/app/prompts/main/SKILL.md` | skill `viralmojo` (same standing behaviour, plus host routines) | skill `viralmojo` (`$viralmojo`), same shared sections |
-| 13 skill bundles, Level-1 catalog | 13 plugin skills `viralmojo:<bundle>`, byte-identical | four routers (OpenAI imports ≤ 5 skills) carrying the 13 bundles as references, byte-identical |
+| 13 skill bundles, Level-1 catalog | 13 plugin skills `viralmojo:<bundle>`: the bundle's frontmatter over a body that calls `load_skill`; the text comes from the server | four routers (OpenAI imports ≤ 5 skills) naming the 13 bundles with their descriptions; the text comes from `load_skill` |
 | Workspace anchor on every call | `workspace_anchor` at session start, and once per turn after the turn's last write; the SessionStart hook says to load the skill | same, from the skill and the server's `instructions` |
-| `dig_channel` subagent (our LLM, billed) | `viralmojo:dig-<channel>` agents — the web digger's prompt + handbook, same search tools; reasoning on the user's plan, only searches billed | `dig_channel`; optional copy-in custom agents |
+| `dig_channel` subagent (our LLM, billed) | `viralmojo:dig-<channel>` agents — the web digger's prompt, same search tools, the channel handbook read from the server with `read_skill_reference`; reasoning on the user's plan, only searches billed | `dig_channel`; optional copy-in custom agents |
 | Step trace with sources | the skill states queries and item counts in every reply that rests on a search | same |
 | Workspace pane | none — the workspace is read in the web app; `open_workspace(path)` returns the node's web URL (`?node=<path>`, which the web shell opens) to hand over as a link | same |
 | Result cards (static ad, parsed link, search collection) | none — the reply prints the ad's copy block, describes the parsed record, lists the kept items one line each | same |
 | Runs survive disconnects | long calls become jobs: `job_status(job_id, wait_seconds=…)`, up to 200 s; asking again for a finished job returns the same result | same, waits up to 45 s (Codex's 60 s tool limit) |
 | Chat attachments | `upload_attachment` + the multipart POST it spells out, then the web's attachment marker | same, where the client has a shell |
 | Paywall card | `SUBSCRIPTION_REQUIRED` relayed with the billing link, never retried | same |
+
+## Updates
+
+The skill text is the server's, not the plugin's (2026-10-29). Every entry skill, router and digger loads its instructions with `load_skill` / `read_skill_reference` at use time, so a backend deploy reaches every host at its next session with no plugin update — the Gooseworks pattern: a thin local entry, the content fetched from the server. The plugin itself changes only when its entries do (a new bundle, a renamed one, a changed description, a new channel, the host skill, a command). For those, no manifest pins a `version`: Claude Code then tracks the marketplace's commits, so `claude plugin update viralmojo@viralmojo` (or background auto-update, which each user turns on under Marketplaces in `/plugin`; a marketplace cannot turn it on) picks up the next published mirror. Re-running `install.md` does that update too.
 
 ## Install
 

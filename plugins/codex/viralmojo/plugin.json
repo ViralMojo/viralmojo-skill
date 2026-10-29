@@ -1,7 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "viralmojo",
-  "version": "0.1.0",
   "description": "Your ViralMojo brand brain in Codex: the web agent's tools over your workspace (research, customer evidence, competitor and organic reads, ad performance, creative writing, static ads) and its skills, routed through five skills.",
   "author": {
     "name": "ViralMojo",
