@@ -9,7 +9,7 @@
     {
       "name": "viralmojo",
       "source": "./plugins/claude/viralmojo",
-      "description": "Your ViralMojo brand brain inside Claude Code: the web agent's tools, its 13 skills, seven channel diggers and the start and status commands.",
+      "description": "Your ViralMojo brand brain inside Claude Code: the web agent's tools, its 13 skills, eight channel diggers and the start and status commands.",
       "category": "marketing",
       "tags": ["marketing", "ads", "brand", "research", "creative"]
     }

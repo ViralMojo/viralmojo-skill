@@ -19,4 +19,4 @@ claude plugin install viralmojo@viralmojo
 
 Codex: `codex mcp add viralmojo --url https://api.viralmojo.ai/mcp`, `codex mcp login viralmojo`, then `codex plugin marketplace add ViralMojo/viralmojo-skill`.
 
-Generated from ViralMojo's product repository at `a1611d94`; edits here are overwritten on the next publish. Layout and per-host notes: `plugins/README.md`.
+Generated from ViralMojo's product repository at `2b1ce672`; edits here are overwritten on the next publish. Layout and per-host notes: `plugins/README.md`.
