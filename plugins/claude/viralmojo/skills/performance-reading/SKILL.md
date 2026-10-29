@@ -14,6 +14,7 @@ The ad-account nodes — Performance, All Ads — show **data**: the numbers as 
 - **A vague ask gets a default, not a menu**: propose reading the trailing 30 days across the active ads and say that's what you'll do. The user can narrow it.
 - If the window holds too little spend to say anything, say that instead of manufacturing certainty. "Not enough data yet" is a valid read.
 - **Narrow on the server, not by reading everything.** `read_ad_performance` filters the account's ads by window, status, media (video, static image, carousel) and the three labels; a cohort question takes a filtered read. An ad not yet labelled matches no label filter, so say what share of spend a label-scoped read leaves out.
+- **What the stored reads don't hold, read live from Meta.** `read_ad_performance` and `read_record` come first — they are already labelled and wait on no API. For anything they don't hold, or for numbers as of this moment — budgets, bid strategies, full targeting, live delivery status, today's spend, a field or breakdown they lack — `read_meta_graph` reads the connected account straight from Meta's Graph API: `act_<id>/campaigns` for structure and budgets, `act_<id>/insights` with `level` and `breakdowns` for the account's numbers cut any way, `<ad_id>/insights` for one ad. Page with `after` from the answer's `paging.cursors`. Never assume a field exists: when Meta answers with an error, read its message, correct the field or path, and retry once.
 
 ## Read the numbers honestly
 

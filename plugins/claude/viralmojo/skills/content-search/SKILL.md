@@ -39,6 +39,10 @@ Two checks before running:
 - **Hashtag-shape test** — would a creator in this niche tag a video with it? If not, it won't match captions either.
 - **Homonym test** — does any single word collide with a stronger mainstream meaning? A bare *creative* drowns in art content; tighten with a second niche word (*ad creative*).
 
+**A tag of its own.** A query that is exactly one `#tag` reads the tag's own feed instead of searching captions — TikTok's newest videos posted under it, Instagram's top-ranked reels for it. Reach for it when the niche has a tag of its own and the ask is what is being posted or performing there now; the tag passes the same two checks. A tag feed's rows carry none of the language and region signals the keyword search filters on, so judge each card's language and audience yourself before keeping it.
+
+**TikTok's suggestions** (`suggest: true`) come back beside the page: the terms TikTok itself proposes for the keyword. Use them when you are unsure the niche says it your way, and as the raw material of a re-craft — they are TikTok's autocomplete, not the audience's own tags, so a suggested term passes the same two checks before you run it.
+
 Ground the keyword in the workspace's niche vocabulary — the brand context and the personas' language — rather than echoing the user's phrasing; the tree usually knows the audience's words better than the ask does.
 
 **Don't use competitor brand names or purchase-journey words** (*review*, *alternative*, *vs*) in these searches — they surface consumers researching purchases, not the audience's organic feed. Exception: the user explicitly names a brand or asks for that framing.
@@ -70,6 +74,12 @@ Never say videos were "added" or "saved" — searching and presenting store noth
 ## More of the same
 
 When the user wants more on the same angle, fetch the next page of the same search by passing the previous result's `next_cursor` back as `cursor` — on their word, never on your own initiative; a result with no `next_cursor` has no next page. A page is curated like any batch and presents as its own collection. Two pages running thin means the query is exhausted: propose a sharper or different keyword instead of paging on.
+
+## One creator, read whole
+
+`read_creator` reads one TikTok or Instagram creator: their profile and their posts newest first — TikTok videos, Instagram reels — as the same cards a search returns, judged, presented and saved exactly like them. It reads a YouTube channel too (`platform: "youtube"`), but YouTube is not a platform this collection holds: its videos come back as plain rows that can be neither presented nor saved — name the ones worth seeing with their links. The same holds for a LinkedIn company page or member (`platform: "linkedin"`): text posts as rows, an evidence read rather than content to collect. Use it when the ask names a creator, or a search surfaced one worth seeing whole. Read views against the creator's follower count: a video far above it travelled past the audience the creator already has, one far below it did not land with them.
+
+On Instagram, `tagged: true` reads the posts other accounts tagged the handle in instead of its own reels. Pointed at the brand's own account, or a competitor's, that is what customers and creators post about it — the formats they reach for, the claims they repeat, the words they use. Those rows include photos and carousels (`format: image`): present them as what people post, and offer saving for the videos only.
 
 ## A search is one-off; a saved query is a standing watch
 

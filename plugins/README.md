@@ -64,33 +64,17 @@ The plugin's tools are then the hand-added server's, `mcp__viralmojo__<tool>`; t
 
 From this (private) repo, for us: `claude plugin marketplace add ViralMojo/viralmojo-skill` + `claude plugin install viralmojo@viralmojo` installs the copy WITH `.mcp.json` (server `plugin:viralmojo:viralmojo`, signed in from `/mcp`); with a hand-added server beside it the agent sees every tool twice under two prefixes — remove one (`claude mcp remove viralmojo`, or disable the plugin's server in `/mcp`). Against the dev box the dig agents need a server named `viralmojo` (their tool lists carry that prefix, not `viralmojo-dev`): `claude mcp add --transport http -s user viralmojo https://dev.viralmojo.ai/mcp`, or `VIRALMOJO_MCP_URL=https://dev.viralmojo.ai/mcp` with this repo's plugin.
 
-Claude Code asks before every MCP tool call, and a plugin cannot ship `permissions`, so only `workspace_anchor` / `account_status` (pre-approved by the two commands) run without a prompt. To stop the prompts on the free reads, add them to `permissions.allow` in `~/.claude/settings.json` (or the project's `.claude/settings.json`):
+Claude Code asks before every MCP tool call — it does not read `readOnlyHint` — and a plugin cannot ship `permissions`, so only `workspace_anchor` / `account_status` (pre-approved by the two commands) run without a prompt. The product's confirmations live in the skill, not the host (owner call 2026-10-28, the web's own model): the agent states a plan before it spends credits on a guess and says what it will write before anything new lands in the brand brain, and the host prompt only repeated that. To turn the prompts off, allow the whole server once in `~/.claude/settings.json` (or the project's `.claude/settings.json`):
 
 ```json
 {
   "permissions": {
-    "allow": [
-      "mcp__plugin_viralmojo_viralmojo__workspace_anchor",
-      "mcp__plugin_viralmojo_viralmojo__read_node",
-      "mcp__plugin_viralmojo_viralmojo__read_table",
-      "mcp__plugin_viralmojo_viralmojo__list_tree",
-      "mcp__plugin_viralmojo_viralmojo__grep_workspace",
-      "mcp__plugin_viralmojo_viralmojo__search_nodes",
-      "mcp__plugin_viralmojo_viralmojo__read_record",
-      "mcp__plugin_viralmojo_viralmojo__read_competitor",
-      "mcp__plugin_viralmojo_viralmojo__read_pool_videos",
-      "mcp__plugin_viralmojo_viralmojo__read_ad_performance",
-      "mcp__plugin_viralmojo_viralmojo__read_swipe_file",
-      "mcp__plugin_viralmojo_viralmojo__account_status",
-      "mcp__plugin_viralmojo_viralmojo__job_status",
-      "mcp__plugin_viralmojo_viralmojo__load_skill",
-      "mcp__plugin_viralmojo_viralmojo__read_skill_reference"
-    ]
+    "allow": ["mcp__plugin_viralmojo_viralmojo__*"]
   }
 }
 ```
 
-For a server added by hand (below) the names are `mcp__viralmojo__<tool>` instead. Writes and paid calls keep their prompt; the skill's own confirm-before-write is a separate gate for the brand brain, not the host.
+For a server added by hand (below) the rule is `mcp__viralmojo__*` instead. A user who wants a host-side stop on brand-brain writes can list the read tools one by one instead of the wildcard; every `read_*`, `list_tree`, `grep_workspace`, `search_nodes`, `load_skill`, `read_skill_reference`, `view_image`, `present_results`, `open_workspace`, `job_status`, `job_cancel` and the paid reads (`web_search`, `exa_search`, `web_fetch`, `read_social_post`, `search_content`, `search_amazon`, `search_tiktok_shop`, `read_video_frames`, `read_site_brand`, `check_ad_library`, the `mine_*` tools, `dig_channel`, `run_voice_review`) are safe to allow — except `mine_amazon_reviews` and `mine_tiktok_shop`, which append the brand's own reviews to customer-reviews when called with `keep_as_customer_reviews`; the `write_*` / `edit_doc` / `create_*` / `move_*` / `update_*` / `append_rows` / `save_to_swipe_file` family and the four deletes are the writes.
 
 Against the dev box: start Claude Code with `VIRALMOJO_MCP_URL=https://dev.viralmojo.ai/mcp` set (the `.mcp.json` URL expands it). From a checkout, without the marketplace: `claude --plugin-dir plugins/claude/viralmojo`.
 

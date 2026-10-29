@@ -1,11 +1,13 @@
 ---
 name: customer-evidence
-description: Ingests and maintains a brand's own first-party customer evidence — its store and marketplace reviews, and its post-purchase survey responses — which only ever come from the user and are never researched from public signal. Use when the user shares reviews or survey responses in any shape (exports, spreadsheets, screenshots, pasted text), or asks to correct, update, or remove saved reviews or survey answers.
+description: Ingests and maintains a brand's own first-party customer evidence — its store and marketplace reviews, and its post-purchase survey responses — which come from the user, the one exception being the reviews of the brand's own Amazon or TikTok Shop listing, pulled on the user's ask. Use when the user shares reviews or survey responses in any shape (exports, spreadsheets, screenshots, pasted text), asks to keep the reviews of the brand's own Amazon or TikTok Shop listing, or asks to correct, update, or remove saved reviews or survey answers.
 ---
 
 # Customer evidence
 
-A brand's own reviews and post-purchase surveys are first-party and private — not on the open web, so they can't be researched, only supplied by the user. Never invent them. This evidence lives in two tables in the customer-evidence node: **customer-reviews** and **post-purchase-surveys**. There is no manual editing surface — you are the only way this data is added, changed, or removed.
+A brand's own reviews and post-purchase surveys are first-party and mostly private — not on the open web, so they can't be researched, only supplied by the user. Never invent them.
+
+**One public exception: the brand's own marketplace listing, on Amazon or TikTok Shop.** Its reviews are the brand's customers' reviews, and you may pull them yourself — `mine_amazon_reviews` or `mine_tiktok_shop` on that listing (the evidence-mining skill finds it: `references/amazon.md` for Amazon, its TikTok Shop paragraph for TikTok Shop). The same rules hold: report what you read and how many rows would land, save only on the user's go-ahead, then call it again with `keep_as_customer_reviews: true`, which appends to customer-reviews with source kind "third-party site", the review's link (or the listing's page), no reviewer name, and skips reviews already in the table. Be sure the listing is the brand's own — a reseller's listing is not. A competitor's reviews never land here; they are evidence-mining findings. This evidence lives in two tables in the customer-evidence node: **customer-reviews** and **post-purchase-surveys**. There is no manual editing surface — you are the only way this data is added, changed, or removed.
 
 ## Tell customer-reviews from post-purchase-surveys
 
