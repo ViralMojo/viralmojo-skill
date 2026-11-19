@@ -17,7 +17,7 @@ plugins/
     commands/{start,status}.md         /viralmojo:start, /viralmojo:status
     agents/dig-<channel>.md            eight channel diggers            (generated)
     skills/viralmojo/SKILL.md          host-mode main skill             (authored)
-    skills/<13 bundles>/SKILL.md       thin entries: frontmatter + load (generated)
+    skills/<15 bundles>/SKILL.md       thin entries: frontmatter + load (generated)
   codex/viralmojo/                     OpenAI plugin (Codex, ChatGPT desktop)
     plugin.json                        Agent Plugins 1.0 manifest + extensions.com.openai
     .codex-plugin/plugin.json          legacy Codex manifest (same metadata)
@@ -35,7 +35,7 @@ plugins/
 | Web | Claude Code plugin | Codex plugin |
 |---|---|---|
 | Base prompt `backend/app/prompts/main/SKILL.md` | skill `viralmojo` (same standing behaviour, plus host routines) | skill `viralmojo` (`$viralmojo`), same shared sections |
-| 13 skill bundles, Level-1 catalog | 13 plugin skills `viralmojo:<bundle>`: the bundle's frontmatter over a body that calls `load_skill`; the text comes from the server | four routers (OpenAI imports ≤ 5 skills) naming the 13 bundles with their descriptions; the text comes from `load_skill` |
+| 15 skill bundles, Level-1 catalog | 15 plugin skills `viralmojo:<bundle>`: the bundle's frontmatter over a body that calls `load_skill`; the text comes from the server | four routers (OpenAI imports ≤ 5 skills) naming the 15 bundles with their descriptions; the text comes from `load_skill` |
 | Workspace anchor on every call | `workspace_anchor` at session start, and once per turn after the turn's last write; the SessionStart hook says to load the skill | same, from the skill and the server's `instructions` |
 | `dig_channel` subagent (our LLM, billed) | `viralmojo:dig-<channel>` agents — the web digger's prompt, same search tools, the channel handbook read from the server with `read_skill_reference`; reasoning on the user's plan, only searches billed | `dig_channel`; optional copy-in custom agents |
 | Step trace with sources | the skill states queries and item counts in every reply that rests on a search | same |

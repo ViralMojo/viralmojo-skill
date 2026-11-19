@@ -1,6 +1,6 @@
 ---
 name: content-search
-description: Searches TikTok and Instagram Reels for content — viral videos, niche creators, formats and hooks worth studying — returning one curated, browsable collection the user can save from into the swipe file. Use when the user asks to find, search, or pull videos, reels, or TikToks on a topic, angle, brand, or trend. Not for links the user pastes (those parse on their own) and not for text-evidence digs into quotes, reviews, or complaints — this finds watchable reference content. Also the home of saved queries — use when the user wants an angle watched on an ongoing basis ("keep an eye on", "every week", "track", "add a query") or wants to drop one, and when a one-off search proves rich enough to keep.
+description: Searches TikTok and Instagram Reels for content — viral videos, niche creators, formats and hooks worth studying — returning one curated, browsable collection the user can save from into the swipe file. Use when the user asks to find, search, or pull videos, reels, or TikToks on a topic, angle, brand, or trend. Not for links the user pastes (those parse on their own) and not for text-evidence digs into quotes, reviews, or complaints — this finds watchable reference content. Also the home of monitors — use when the user wants an angle watched on an ongoing basis ("keep an eye on", "every week", "track", "add a monitor") or wants to drop one, and when a one-off search proves rich enough to keep.
 user-invocable: false
 ---
 

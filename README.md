@@ -1,6 +1,6 @@
 # ViralMojo skills and plugins
 
-The ViralMojo plugin for Claude Code and Codex: entries for the web agent's 13 skills, the eight channel diggers that run on your own plan, and the start / status commands. It works over the ViralMojo MCP server, which your agent registers for you. The skills' instructions and the diggers' handbooks load from that server when they are used, so they are always the current ones; the plugin itself changes only when a skill is added or renamed.
+The ViralMojo plugin for Claude Code and Codex: entries for the web agent's 15 skills, the eight channel diggers that run on your own plan, and the start / status commands. It works over the ViralMojo MCP server, which your agent registers for you. The skills' instructions and the diggers' handbooks load from that server when they are used, so they are always the current ones; the plugin itself changes only when a skill is added or renamed.
 
 **Update:** `claude plugin marketplace update viralmojo` then `claude plugin update viralmojo@viralmojo`, or turn on auto-update for the `viralmojo` marketplace under Marketplaces in `/plugin`.
 
@@ -19,4 +19,4 @@ claude plugin install viralmojo@viralmojo
 
 Codex: `codex mcp add viralmojo --url https://api.viralmojo.ai/mcp`, `codex mcp login viralmojo`, then `codex plugin marketplace add ViralMojo/viralmojo-skill`.
 
-Generated from ViralMojo's product repository at `2b1ce672`; edits here are overwritten on the next publish. Layout and per-host notes: `plugins/README.md`.
+Generated from ViralMojo's product repository at `0fe3e5e0`; edits here are overwritten on the next publish. Layout and per-host notes: `plugins/README.md`.
