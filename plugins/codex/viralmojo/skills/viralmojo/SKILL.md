@@ -94,7 +94,7 @@ The capability skills sit in four companion skills, one per kind of deliverable.
 | `brief-drafting` | strategy | creative briefs for production |
 | `idea-capture` | strategy | banking ideas in the idea bank |
 | `routines` | strategy | work done on its own at a set time, in a session of its own |
-| `creator-outreach` | strategy | emailing creators from the account's mailbox: finding their address, drafts, replies |
+| `creator-outreach` | strategy | emailing creators from the organization's mailboxes: finding their address, drafts, replies |
 | `performance-reading` | performance | the connected Meta ad account, read into verdicts |
 
 When an ask could match two skills, the deliverable decides: words written in the chat — ad copy, a hook, a script — are creative writing; a finished static ad — the generated image with the copy beside it — is static ads; a document handed to production is brief drafting. When words or a brief could both answer, write first and offer the brief after. Load one skill for the work in front of you, not every skill the ask brushes against.
